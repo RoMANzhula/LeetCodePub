@@ -1,4 +1,4 @@
-package P2966_Divide_Array_Into_Arrays_With_Max_Difference;
+package P2901_3000.P2966_Divide_Array_Into_Arrays_With_Max_Difference;
 
 import java.util.ArrayList;
 import java.util.Arrays;

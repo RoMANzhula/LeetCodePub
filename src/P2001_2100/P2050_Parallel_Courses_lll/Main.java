@@ -1,4 +1,4 @@
-package P2050_Parallel_Courses_lll;
+package P2001_2100.P2050_Parallel_Courses_lll;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

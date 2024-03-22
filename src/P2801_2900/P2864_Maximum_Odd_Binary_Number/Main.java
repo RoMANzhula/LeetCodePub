@@ -1,4 +1,4 @@
-package P2864_Maximum_Odd_Binary_Number;
+package P2801_2900.P2864_Maximum_Odd_Binary_Number;
 
 public class Main {
     public static void main(String[] args) {

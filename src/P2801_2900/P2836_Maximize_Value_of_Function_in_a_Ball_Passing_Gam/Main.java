@@ -1,4 +1,4 @@
-package P2836_Maximize_Value_of_Function_in_a_Ball_Passing_Gam;
+package P2801_2900.P2836_Maximize_Value_of_Function_in_a_Ball_Passing_Gam;
 import java.util.List;
 
 public class Main {

@@ -1,4 +1,4 @@
-package P2092_Find_All_People_With_Secret;
+package P2001_2100.P2092_Find_All_People_With_Secret;
 
 import java.util.*;
 
