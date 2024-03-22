@@ -1,4 +1,4 @@
-package P2385_Amount_of_Time_for_Binary_Tree_to_Be_Infected;
+package P2301_2400.P2385_Amount_of_Time_for_Binary_Tree_to_Be_Infected;
 
 import java.util.*;
 

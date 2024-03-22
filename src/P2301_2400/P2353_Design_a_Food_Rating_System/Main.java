@@ -1,8 +1,7 @@
-package P2353_Design_a_Food_Rating_System;
+package P2301_2400.P2353_Design_a_Food_Rating_System;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.TreeSet;
 
 public class Main {
