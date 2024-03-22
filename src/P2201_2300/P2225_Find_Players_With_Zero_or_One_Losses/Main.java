@@ -1,4 +1,4 @@
-package P2225_Find_Players_With_Zero_or_One_Losses;
+package P2201_2300.P2225_Find_Players_With_Zero_or_One_Losses;
 
 import java.util.*;
 

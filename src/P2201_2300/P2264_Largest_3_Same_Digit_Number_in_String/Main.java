@@ -1,4 +1,4 @@
-package P2264_Largest_3_Same_Digit_Number_in_String;
+package P2201_2300.P2264_Largest_3_Same_Digit_Number_in_String;
 
 public class Main {
     public static void main(String[] args) {
