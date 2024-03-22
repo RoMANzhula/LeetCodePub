@@ -1,4 +1,4 @@
-package P2402_Meeting_Rooms_lll;
+package P2401_2500.P2402_Meeting_Rooms_lll;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package P2125_Number_of_Laser_Beams_in_a_Bank;
+package P2101_2200.P2125_Number_of_Laser_Beams_in_a_Bank;
 
 public class Main {
     public static void main(String[] args) {
