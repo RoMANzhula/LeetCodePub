@@ -1,7 +1,4 @@
-package P1347_Minimum_Number_of_Steps_to_Make_Two_Strings_Anagram;
-
-import java.util.HashMap;
-import java.util.Map;
+package P1301_1400.P1347_Minimum_Number_of_Steps_to_Make_Two_Strings_Anagram;
 
 public class Main {
     public static void main(String[] args) {

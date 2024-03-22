@@ -1,4 +1,4 @@
-package P1335_Minimum_Difficulty_of_a_Job_Schedule;
+package P1301_1400.P1335_Minimum_Difficulty_of_a_Job_Schedule;
 
 public class Main {
     public static void main(String[] args) {
