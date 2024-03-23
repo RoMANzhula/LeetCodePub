@@ -1,6 +1,4 @@
-package P2742_Painting_the_Walls;
-
-import java.util.Arrays;
+package P2701_2800.P2742_Painting_the_Walls;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package P2485_Find_the_Pivot_Integer;
+package P2401_2500.P2485_Find_the_Pivot_Integer;
 
 public class Main {
     public static void main(String[] args) {

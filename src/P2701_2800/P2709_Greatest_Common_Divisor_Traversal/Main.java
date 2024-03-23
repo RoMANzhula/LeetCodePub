@@ -1,4 +1,4 @@
-package P2709_Greatest_Common_Divisor_Traversal;
+package P2701_2800.P2709_Greatest_Common_Divisor_Traversal;
 
 import java.util.*;
 

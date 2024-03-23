@@ -1,4 +1,4 @@
-package P2482_Difference_Between_Ones_and_Zeros_in_Row_And_Column;
+package P2401_2500.P2482_Difference_Between_Ones_and_Zeros_in_Row_And_Column;
 
 public class Main {
     public static void main(String[] args) {

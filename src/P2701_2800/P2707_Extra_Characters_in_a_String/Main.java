@@ -1,4 +1,4 @@
-package P2707_Extra_Characters_in_a_String;
+package P2701_2800.P2707_Extra_Characters_in_a_String;
 
 import java.util.Arrays;
 
