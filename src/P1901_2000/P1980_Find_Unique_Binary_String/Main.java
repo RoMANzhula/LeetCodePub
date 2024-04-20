@@ -1,4 +1,4 @@
-package P1980_Find_Unique_Binary_String;
+package P1901_2000.P1980_Find_Unique_Binary_String;
 
 import java.util.HashSet;
 import java.util.Set;
