@@ -1,4 +1,4 @@
-package P3075_Maximize_Happiness_of_Selected_Children;
+package P3001_3100.P3075_Maximize_Happiness_of_Selected_Children;
 
 import java.util.Arrays;
 

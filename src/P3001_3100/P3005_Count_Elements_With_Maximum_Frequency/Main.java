@@ -1,4 +1,4 @@
-package P3005_Count_Elements_With_Maximum_Frequency;
+package P3001_3100.P3005_Count_Elements_With_Maximum_Frequency;
 
 import java.util.HashMap;
 import java.util.Map;
