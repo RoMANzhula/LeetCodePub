@@ -1,4 +1,4 @@
-package P2540_Minimum_Common_Value;
+package P2501_2600.P2540_Minimum_Common_Value;
 
 public class Main {
     public static void main(String[] args) {
