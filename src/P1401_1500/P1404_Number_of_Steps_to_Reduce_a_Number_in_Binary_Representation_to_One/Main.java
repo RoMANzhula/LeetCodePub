@@ -30,7 +30,7 @@ public class Main {
 //    }
 
     // the faster solution
-    public static int numSteps(String s) {
+    public int numSteps(String s) {
         int steps = 0;
         int carry = 0;
 
