@@ -1,4 +1,4 @@
-package P1401_1500.P1482_Least_Number_of_Unique_Integers_after_K_Removals;
+package P1401_1500.P1481_Least_Number_of_Unique_Integers_after_K_Removals;
 
 import java.util.*;
 
