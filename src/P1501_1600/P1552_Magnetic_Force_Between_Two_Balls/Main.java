@@ -1,4 +1,4 @@
-package P1552_Magnetic_Force_Between_Two_Balls;
+package P1501_1600.P1552_Magnetic_Force_Between_Two_Balls;
 
 import java.util.Arrays;
 

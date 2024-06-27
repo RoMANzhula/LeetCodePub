@@ -1,4 +1,4 @@
-package P1544_Make_The_String_Great;
+package P1501_1600.P1544_Make_The_String_Great;
 
 import java.util.Stack;
 
