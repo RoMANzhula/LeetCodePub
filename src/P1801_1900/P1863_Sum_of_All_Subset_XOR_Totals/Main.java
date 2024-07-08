@@ -1,4 +1,4 @@
-package P1863_Sum_of_All_Subset_XOR_Totals;
+package P1801_1900.P1863_Sum_of_All_Subset_XOR_Totals;
 
 public class Main {
     public static void main(String[] args) {
