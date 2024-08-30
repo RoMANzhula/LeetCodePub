@@ -1,4 +1,4 @@
-package P2678_Number_of_Senior_Citizens;
+package P2601_2700.P2678_Number_of_Senior_Citizens;
 
 public class Main {
     public static void main(String[] args) {
