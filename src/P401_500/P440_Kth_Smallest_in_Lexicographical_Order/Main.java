@@ -46,6 +46,24 @@ public class Main {
     }
 }
 
+//Explanation:
+//findKthNumber Method:
+//Start from 1, and decrement k because we are already at the first number.
+//Use the helper method calculateSteps to calculate how many numbers are between the current number and
+// the next number lexicographically.
+//If the number of steps is less than or equal to k, we move to the next sibling.
+//If the number of steps is more than k, we descend into the current prefix (by multiplying by 10).
+//Repeat until k == 0, at which point the current number is the answer.
+//calculateSteps Method:
+//This method calculates how many numbers are between first and next in lexicographical order, up to n.
+//We simulate going down a prefix tree, counting all numbers in the current level before moving deeper.
+//Time Complexity:
+//The time complexity is approximately
+//O(logn), as we traverse down levels of the number tree.
+//Space Complexity:
+//The space complexity is
+//O(1) since we only use a few variables for tracking steps and the current number.
+
 
 //Given two integers n and k, return the kth lexicographically smallest integer in the range [1, n].
 //
