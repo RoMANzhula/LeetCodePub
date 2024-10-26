@@ -39,65 +39,127 @@ public class Main {
     }
 
 
-    public int[] treeQueries(TreeNode root, int[] queries) {
-        computeDepthAndHeight(root, 0);
-        calculateMaxHeightsAtEachDepth();
+//    public int[] treeQueries(TreeNode root, int[] queries) {
+//        computeDepthAndHeight(root, 0);
+//        calculateMaxHeightsAtEachDepth();
+//
+//        int initialHeight = getTreeHeight();
+//        int[] results = new int[queries.length];
+//
+//        for (int i = 0; i < queries.length; i++) {
+//            int queryNode = queries[i];
+//            int depth = nodeDepth.get(queryNode);
+//            int height = nodeHeight.get(queryNode);
+//
+//            List<Integer> maxHeights = depthMaxHeights.get(depth);
+//            int newHeight = (maxHeights.get(0) == height) ? initialHeight - height + maxHeights.get(1) : initialHeight;
+//
+//            results[i] = newHeight;
+//        }
+//
+//        return results;
+//    }
+//
+//    private int computeDepthAndHeight(TreeNode node, int depth) {
+//        if (node == null) return -1;
+//
+//        nodeDepth.put(node.val, depth);
+//        int leftHeight = computeDepthAndHeight(node.left, depth + 1);
+//        int rightHeight = computeDepthAndHeight(node.right, depth + 1);
+//
+//        int height = 1 + Math.max(leftHeight, rightHeight);
+//        nodeHeight.put(node.val, height);
+//
+//        return height;
+//    }
+//
+//    private void calculateMaxHeightsAtEachDepth() {
+//        for (Map.Entry<Integer, Integer> entry : nodeDepth.entrySet()) {
+//            int depth = entry.getValue();
+//            int height = nodeHeight.get(entry.getKey());
+//
+//            depthMaxHeights.putIfAbsent(depth, new ArrayList<>(Arrays.asList(-1, -1)));
+//            List<Integer> maxHeights = depthMaxHeights.get(depth);
+//
+//            if (height > maxHeights.get(0)) {
+//                maxHeights.set(1, maxHeights.get(0));
+//                maxHeights.set(0, height);
+//            } else if (height > maxHeights.get(1)) {
+//                maxHeights.set(1, height);
+//            }
+//        }
+//    }
+//
+//    private int getTreeHeight() {
+//        int maxHeight = 0;
+//        for (Map.Entry<Integer, List<Integer>> entry : depthMaxHeights.entrySet()) {
+//            int depth = entry.getKey();
+//            int height = entry.getValue().get(0);
+//            maxHeight = Math.max(maxHeight, depth + height);
+//        }
+//        return maxHeight;
+//    }
 
-        int initialHeight = getTreeHeight();
-        int[] results = new int[queries.length];
+    //little faster solution
+    private Map<Integer, Integer> depthMap = new HashMap<>();
+    private Map<Integer, Integer> heightMap = new HashMap<>();
+    private Map<Integer, List<Integer>> depthHeights = new HashMap<>();
+
+    public int[] treeQueries(TreeNode root, int[] queries) {
+        // Step 1: Compute depth and height for each node
+        computeDepthAndHeight(root, 0);
+
+        // Step 2: Organize the heights per depth level
+        for (int node : heightMap.keySet()) {
+            int depth = depthMap.get(node);
+            int height = heightMap.get(node);
+            depthHeights.computeIfAbsent(depth, k -> new ArrayList<>()).add(height);
+        }
+
+        // Step 3: Sort heights within each depth level for easy access
+        for (List<Integer> heights : depthHeights.values()) {
+            Collections.sort(heights, Collections.reverseOrder());
+        }
+
+        // Step 4: Process each query
+        int[] result = new int[queries.length];
+        int originalHeight = depthHeights.keySet().stream().max(Integer::compare).orElse(0);
 
         for (int i = 0; i < queries.length; i++) {
             int queryNode = queries[i];
-            int depth = nodeDepth.get(queryNode);
-            int height = nodeHeight.get(queryNode);
+            int depth = depthMap.get(queryNode);
+            int height = heightMap.get(queryNode);
 
-            List<Integer> maxHeights = depthMaxHeights.get(depth);
-            int newHeight = (maxHeights.get(0) == height) ? initialHeight - height + maxHeights.get(1) : initialHeight;
+            // Exclude this node's height from its depth level for current calculation
+            List<Integer> heightsAtDepth = depthHeights.get(depth);
+            int maxDepthHeight;
+            if (heightsAtDepth.size() == 1) {
+                maxDepthHeight = depth - 1; // No other node at this depth
+            } else if (heightsAtDepth.get(0) == height) {
+                maxDepthHeight = depth + heightsAtDepth.get(1); // Second highest at this depth
+            } else {
+                maxDepthHeight = originalHeight;
+            }
 
-            results[i] = newHeight;
+            // Tree height with the query node's subtree removed
+            result[i] = maxDepthHeight;
         }
 
-        return results;
+        return result;
     }
 
     private int computeDepthAndHeight(TreeNode node, int depth) {
         if (node == null) return -1;
 
-        nodeDepth.put(node.val, depth);
+        depthMap.put(node.val, depth);
+
         int leftHeight = computeDepthAndHeight(node.left, depth + 1);
         int rightHeight = computeDepthAndHeight(node.right, depth + 1);
 
-        int height = 1 + Math.max(leftHeight, rightHeight);
-        nodeHeight.put(node.val, height);
+        int nodeHeight = 1 + Math.max(leftHeight, rightHeight);
+        heightMap.put(node.val, nodeHeight);
 
-        return height;
-    }
-
-    private void calculateMaxHeightsAtEachDepth() {
-        for (Map.Entry<Integer, Integer> entry : nodeDepth.entrySet()) {
-            int depth = entry.getValue();
-            int height = nodeHeight.get(entry.getKey());
-
-            depthMaxHeights.putIfAbsent(depth, new ArrayList<>(Arrays.asList(-1, -1)));
-            List<Integer> maxHeights = depthMaxHeights.get(depth);
-
-            if (height > maxHeights.get(0)) {
-                maxHeights.set(1, maxHeights.get(0));
-                maxHeights.set(0, height);
-            } else if (height > maxHeights.get(1)) {
-                maxHeights.set(1, height);
-            }
-        }
-    }
-
-    private int getTreeHeight() {
-        int maxHeight = 0;
-        for (Map.Entry<Integer, List<Integer>> entry : depthMaxHeights.entrySet()) {
-            int depth = entry.getKey();
-            int height = entry.getValue().get(0);
-            maxHeight = Math.max(maxHeight, depth + height);
-        }
-        return maxHeight;
+        return nodeHeight;
     }
 
 }
@@ -129,6 +191,16 @@ class TreeNode {
 //For each query, we check if the queried node has the maximum height at its depth level.
 //If it does, we replace it with the second-highest height.
 //Otherwise, the tree height remains the initial height.
+
+//Explanation of Key Steps in faster solution
+//Compute Depth and Height:
+//The computeDepthAndHeight method populates depthMap and heightMap.
+//Depth-Heights Map:
+//For each depth, heights of nodes are sorted in descending order to allow quick access to the maximum or the
+// second-highest height at that depth.
+//Query Processing:
+//For each query, the subtree is virtually removed by ignoring the node's height in the depthHeights map and
+// recalculating the tree height.
 
 
 //2458. Height of Binary Tree After Subtree Removal Queries
