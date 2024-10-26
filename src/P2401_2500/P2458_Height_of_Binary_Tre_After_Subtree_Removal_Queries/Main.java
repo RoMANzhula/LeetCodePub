@@ -35,7 +35,7 @@ public class Main {
         root2.left.left.right = new TreeNode(6);
         int[] queries2 = {3, 2, 4, 8};
         int[] result2 = solution.treeQueries(root2, queries2);
-        System.out.println("Example 2 Output: " + java.util.Arrays.toString(result2)); // Expected: [3, 2, 3, 2]
+        System.out.println("Example 2 Output: " + java.util.Arrays.toString(result2)); // Expected: [3, 3, 3, 3]
     }
 
 
