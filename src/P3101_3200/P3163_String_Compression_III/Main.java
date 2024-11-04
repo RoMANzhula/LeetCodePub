@@ -1,4 +1,4 @@
-package P3163_String_Compression_III;
+package P3101_3200.P3163_String_Compression_III;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,6 +29,7 @@ public class Main {
 
         return comp.toString();
     }
+
 }
 
 //Explanation of the Code:

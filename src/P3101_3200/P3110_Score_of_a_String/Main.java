@@ -1,4 +1,4 @@
-package P3110_Score_of_a_String;
+package P3101_3200.P3110_Score_of_a_String;
 
 public class Main {
     public static void main(String[] args) {
