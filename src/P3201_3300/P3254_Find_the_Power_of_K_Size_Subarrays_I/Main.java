@@ -1,4 +1,4 @@
-package P3254_Find_the_Power_of_K_Size_Subarrays_I;
+package P3201_3300.P3254_Find_the_Power_of_K_Size_Subarrays_I;
 
 import java.util.Arrays;
 
