@@ -35,6 +35,14 @@ public class Main {
     }
 }
 
+//Explanation of the Code:
+//Find Minimum Value:
+//-Loop through the array to find the index of the smallest number.
+//-If multiple minimums exist, the first one is chosen due to the left-to-right iteration.
+//Replace with Multiplied Value:
+//-Multiply the minimum value by the given multiplier and update its position in the array.
+//Repeat for k Operations:
+//-Each time the operation is performed, the array is updated.
 
 
 //You are given an integer array nums, an integer k, and an integer multiplier.
