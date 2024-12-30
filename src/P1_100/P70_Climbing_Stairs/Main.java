@@ -6,6 +6,12 @@ public class Main {
         System.out.println(climbStairs(3)); // output 3
         System.out.println(climbStairs(4)); // output 5
         System.out.println(climbStairs(5)); // output 8
+
+        System.out.println("second method:");
+        System.out.println(climbStairs2(2)); // output 2
+        System.out.println(climbStairs2(3)); // output 3
+        System.out.println(climbStairs2(4)); // output 5
+        System.out.println(climbStairs2(5)); // output 8
     }
 
     public static int climbStairs(int n) {
@@ -22,6 +28,22 @@ public class Main {
         }
 
         return dp[n];
+    }
+
+    // prev/current/next - are stapes
+    public static int climbStairs2(int n) {
+        if (n == 1) return 1;
+
+        int prev = 1;
+        int current = 2;
+
+        for (int i = 3; i <= n + 1; i++) {
+            int next = prev + current;
+            prev = current;
+            current = next;
+        }
+
+        return prev;
     }
 }
 
