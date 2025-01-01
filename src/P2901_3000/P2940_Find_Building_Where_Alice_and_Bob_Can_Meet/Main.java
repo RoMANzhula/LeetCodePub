@@ -136,3 +136,5 @@ class BinaryIndexedTree {
 //1 <= queries.length <= 5 * 104
 //queries[i] = [ai, bi]
 //0 <= ai, bi <= heights.length - 1
+
+//https://support.leetcode.com/hc/en-us/requests/301528
