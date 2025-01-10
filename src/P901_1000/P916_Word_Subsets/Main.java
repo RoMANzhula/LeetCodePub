@@ -61,6 +61,20 @@ public class Main {
     }
 }
 
+//Explanation
+//Character Frequency Calculation:
+//The getCharFrequency method calculates the frequency of each character in a given word.
+//Maximum Frequency in words2:
+//For each word in words2, determine the maximum frequency for each character.
+//Universal Check:
+//A word from words1 is checked against the maximum frequency array to ensure it meets the subset condition for
+// all words in words2.
+//Complexity
+//Time Complexity:
+//O(len(words1)×len(word1)+len(words2)×len(word2))
+//Space Complexity:
+//O(26) for the frequency arrays.
+
 
 //You are given two string arrays words1 and words2.
 //A string b is a subset of string a if every letter in b occurs in a including multiplicity.
