@@ -1,4 +1,4 @@
-package P401_500.P458_Max_Consecutive_Ones;
+package P401_500.P485_Max_Consecutive_Ones;
 
 public class Main {
     public static void main(String[] args) {
