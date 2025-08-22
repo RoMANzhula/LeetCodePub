@@ -1,4 +1,4 @@
-package P2301_2400.P2348.Number_of_Zero_Filled_Subarrays;
+package P2301_2400.P2348_Number_of_Zero_Filled_Subarrays;
 
 public class Main {
 
