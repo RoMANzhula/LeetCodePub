@@ -107,6 +107,10 @@ public class Main {
 
 }
 
+//Complexity:
+// time - O(m^2*n + n^2*m + m*n*m*n) -> bounded by ~1.6 million operations when m,n <= 30.
+// space - O(m*n) = at most 900.
+
 
 //You are given a 2D binary array grid. You need to find 3 non-overlapping rectangles having non-zero areas
 // with horizontal and vertical sides such that all the 1's in grid lie inside these rectangles.
