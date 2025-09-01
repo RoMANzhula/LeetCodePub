@@ -9,7 +9,6 @@ public class Main {
         ListNode res1 = solution.deleteDuplicates(head1);
         printList(res1); // Output: 1 2
 
-        // Example 2: head = [1,1,2,3,3]
         ListNode head2 = new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(3)))));
         ListNode res2 = solution.deleteDuplicates(head2);
         printList(res2); // Output: 1 2 3
