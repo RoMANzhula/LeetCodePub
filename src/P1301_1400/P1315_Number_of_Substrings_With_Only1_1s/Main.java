@@ -1,4 +1,4 @@
-package P1501_1600.P1315_Number_of_Substrings_With_Only1_1s;
+package P1301_1400.P1315_Number_of_Substrings_With_Only1_1s;
 
 public class Main {
 
