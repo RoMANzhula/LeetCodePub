@@ -1,0 +1,101 @@
+package P3501_3600.P3583_Count_Special_Triplets;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Main solution = new Main();
+
+        System.out.println(solution.specialTriplets(new int[]{6, 3, 6}));       // 1
+        System.out.println(solution.specialTriplets(new int[]{0, 1, 0, 0}));   // 1
+        System.out.println(solution.specialTriplets(new int[]{8, 4, 2, 8, 4}));// 2
+    }
+
+    private final int MOD = 1_000_000_007;
+
+    public int specialTriplets(int[] nums) {
+        Map<Integer, Long> leftMap = new HashMap<>();
+        Map<Integer, Long> rightMap = new HashMap<>();
+
+        //fill rightMap with all elements
+        for (int num : nums) {
+            rightMap.put(num, rightMap.getOrDefault(num, 0L) + 1);
+        }
+
+        long result = 0;
+
+        // iterate j from left to right
+        for (int j = 0; j < nums.length; j++) {
+            int mid = nums[j];
+
+            // remove current element from rightMap
+            rightMap.put(mid, rightMap.get(mid) - 1);
+            if (rightMap.get(mid) == 0) {
+                rightMap.remove(mid);
+            }
+
+            int target = mid * 2;
+
+            long leftCount = leftMap.getOrDefault(target, 0L);
+            long rightCount = rightMap.getOrDefault(target, 0L);
+
+            result = (result + leftCount * rightCount) % MOD;
+
+            // add current element to leftMap
+            leftMap.put(mid, leftMap.getOrDefault(mid, 0L) + 1);
+        }
+
+        return (int) result;
+    }
+
+}
+
+//Complexity:
+// time and space - O(n)
+
+
+//You are given an integer array nums.
+//A special triplet is defined as a triplet of indices (i, j, k) such that:
+//0 <= i < j < k < n, where n = nums.length
+//nums[i] == nums[j] * 2
+//nums[k] == nums[j] * 2
+//Return the total number of special triplets in the array.
+//Since the answer may be large, return it modulo 109 + 7.
+
+//Example 1:
+//Input: nums = [6,3,6]
+//Output: 1
+//Explanation:
+//The only special triplet is (i, j, k) = (0, 1, 2), where:
+//nums[0] = 6, nums[1] = 3, nums[2] = 6
+//nums[0] = nums[1] * 2 = 3 * 2 = 6
+//nums[2] = nums[1] * 2 = 3 * 2 = 6
+
+//Example 2:
+//Input: nums = [0,1,0,0]
+//Output: 1
+//Explanation:
+//The only special triplet is (i, j, k) = (0, 2, 3), where:
+//nums[0] = 0, nums[2] = 0, nums[3] = 0
+//nums[0] = nums[2] * 2 = 0 * 2 = 0
+//nums[3] = nums[2] * 2 = 0 * 2 = 0
+
+//Example 3:
+//Input: nums = [8,4,2,8,4]
+//Output: 2
+//Explanation:
+//There are exactly two special triplets:
+//(i, j, k) = (0, 1, 3)
+//nums[0] = 8, nums[1] = 4, nums[3] = 8
+//nums[0] = nums[1] * 2 = 4 * 2 = 8
+//nums[3] = nums[1] * 2 = 4 * 2 = 8
+//(i, j, k) = (1, 2, 4)
+//nums[1] = 4, nums[2] = 2, nums[4] = 4
+//nums[1] = nums[2] * 2 = 2 * 2 = 4
+//nums[4] = nums[2] * 2 = 2 * 2 = 4
+
+//Constraints:
+//3 <= n == nums.length <= 105
+//0 <= nums[i] <= 105
