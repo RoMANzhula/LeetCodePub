@@ -69,6 +69,9 @@ public class Main {
 
 }
 
+//Complexity:
+// time and space - O(n)
+
 
 //You are given two integer arrays prices and strategy, where:
 //prices[i] is the price of a given stock on the ith day.
