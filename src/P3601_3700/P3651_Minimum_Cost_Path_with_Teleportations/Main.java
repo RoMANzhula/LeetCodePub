@@ -40,19 +40,22 @@ public class Main {
         int m = grid.length;
         int n = grid[0].length;
 
+        long INF = Long.MAX_VALUE / 4;
         long[][][] dist = new long[m][n][k + 1];
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
-                Arrays.fill(dist[i][j], Long.MAX_VALUE);
+                Arrays.fill(dist[i][j], INF);
 
-        // collect all cells
+        // all cells sorted by value
         List<int[]> cells = new ArrayList<>();
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 cells.add(new int[]{i, j});
 
-        // sort cells by grid value
         cells.sort(Comparator.comparingInt(a -> grid[a[0]][a[1]]));
+
+        // for each teleport count, how many cells are unlocked
+        int[] idx = new int[k + 1];
 
         PriorityQueue<State> pq =
                 new PriorityQueue<>(Comparator.comparingLong(a -> a.cost));
@@ -66,17 +69,15 @@ public class Main {
         while (!pq.isEmpty()) {
             State cur = pq.poll();
 
-            if (cur.cost > dist[cur.x][cur.y][cur.t]) continue;
+            if (cur.cost != dist[cur.x][cur.y][cur.t]) continue;
 
-            // reached target
             if (cur.x == m - 1 && cur.y == n - 1)
                 return (int) cur.cost;
 
-            // normal moves (right, down)
+            // normal moves
             for (int d = 0; d < 2; d++) {
                 int nx = cur.x + dx[d];
                 int ny = cur.y + dy[d];
-
                 if (nx < m && ny < n) {
                     long newCost = cur.cost + grid[nx][ny];
                     if (newCost < dist[nx][ny][cur.t]) {
@@ -88,7 +89,8 @@ public class Main {
 
             // teleport
             if (cur.t < k) {
-                for (int[] c : cells) {
+                while (idx[cur.t] < cells.size()) {
+                    int[] c = cells.get(idx[cur.t]);
                     int x = c[0], y = c[1];
                     if (grid[x][y] > grid[cur.x][cur.y]) break;
 
@@ -96,6 +98,7 @@ public class Main {
                         dist[x][y][cur.t + 1] = cur.cost;
                         pq.offer(new State(x, y, cur.t + 1, cur.cost));
                     }
+                    idx[cur.t]++;
                 }
             }
         }
