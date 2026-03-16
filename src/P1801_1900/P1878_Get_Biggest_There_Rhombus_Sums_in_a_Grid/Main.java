@@ -97,6 +97,10 @@ public class Main {
 
 }
 
+//Complexity:
+// time - O(m * n 8 min(m,n))
+// space - O(m * n)
+
 
 //You are given an m x n integer matrix grid.
 //A rhombus sum is the sum of the elements that form the border of a regular rhombus shape in grid. The rhombus must
