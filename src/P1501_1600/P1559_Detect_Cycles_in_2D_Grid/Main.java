@@ -1,4 +1,4 @@
-package P1501_1600.P1559_Derecr_Cycles_in_2D_Grid;
+package P1501_1600.P1559_Detect_Cycles_in_2D_Grid;
 
 public class Main {
 
