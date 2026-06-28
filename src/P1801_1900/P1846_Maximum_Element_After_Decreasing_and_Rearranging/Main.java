@@ -58,6 +58,10 @@ public class Main {
 
 }
 
+//Complexity:
+// time - O(n log n)
+// space - O(log n)
+
 //You are given an array of positive integers arr. Perform some operations (possibly none) on arr so that it
 // satisfies these conditions:
 //The value of the first element in arr must be 1.
