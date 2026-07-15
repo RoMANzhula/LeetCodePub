@@ -5,28 +5,28 @@ public class Main {
     public static void main(String[] args) {
         Main solution = new Main();
 
-        System.out.println(solution.getOfOddAndEvenSums(4));
-        System.out.println(solution.getOfOddAndEvenSums(5));
+        System.out.println(solution.gcdOfOddEvenSums(4));
+        System.out.println(solution.gcdOfOddEvenSums(5));
     }
 
-    public int getOfOddAndEvenSums(int n) {
-        int oddSum = 1, evenSum = 2, result = 0;
-
-        while (n > 0){
-            oddSum += 2;
-            evenSum += 2;
-            result += (evenSum - oddSum);
-
-            n--;
-        }
-
-        return result;
-    }
+//    public int gcdOfOddEvenSums(int n) {
+//        int oddSum = 1, evenSum = 2, result = 0;
+//
+//        while (n > 0){
+//            oddSum += 2;
+//            evenSum += 2;
+//            result += (evenSum - oddSum);
+//
+//            n--;
+//        }
+//
+//        return result;
+//    }
 
     // faster solution
-    //public int gcdOfOddEvenSums(int n) {
-    //       return n;
-    //}
+    public int gcdOfOddEvenSums(int n) {
+           return n;
+    }
 
     // and another one
     // public int gcdOfSums(int n) {
