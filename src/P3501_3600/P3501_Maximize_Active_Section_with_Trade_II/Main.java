@@ -1,0 +1,273 @@
+package P3501_3600.P3501_Maximize_Active_Section_with_Trade_II;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Main solution = new Main();
+
+        String s = "0100";
+        int[][] queries = {
+                {0, 3},
+                {0, 2},
+                {1, 3},
+                {2, 3}
+        };
+
+        List<Integer> answer = solution.maxActiveSectionsAfterTrade(s, queries);
+
+        System.out.println(answer);
+    }
+
+    static class Group {
+        int start;
+        int length;
+
+        Group(int start, int length) {
+            this.start = start;
+            this.length = length;
+        }
+    }
+
+    static class SparseTable {
+        private final int[][] st;
+        private final int[] log;
+
+        SparseTable(int[] nums) {
+            int n = nums.length;
+
+            if (n == 0) {
+                st = new int[1][0];
+                log = new int[1];
+                return;
+            }
+
+            log = new int[n + 1];
+            for (int i = 2; i <= n; i++)
+                log[i] = log[i / 2] + 1;
+
+            int k = log[n] + 1;
+            st = new int[k][n];
+
+            System.arraycopy(nums, 0, st[0], 0, n);
+
+            for (int i = 1; i < k; i++) {
+                int len = 1 << i;
+                int half = len >> 1;
+                for (int j = 0; j + len <= n; j++) {
+                    st[i][j] = Math.max(st[i - 1][j],
+                            st[i - 1][j + half]);
+                }
+            }
+        }
+
+        int query(int l, int r) {
+            int j = log[r - l + 1];
+            return Math.max(st[j][l], st[j][r - (1 << j) + 1]);
+        }
+    }
+
+    public List<Integer> maxActiveSectionsAfterTrade(String s, int[][] queries) {
+
+        int ones = 0;
+        for (int i = 0; i < s.length(); i++)
+            if (s.charAt(i) == '1')
+                ones++;
+
+        List<Group> zeroGroups = new ArrayList<>();
+        int[] zeroGroupIndex = getZeroGroups(s, zeroGroups);
+
+        List<Integer> ans = new ArrayList<>(queries.length);
+
+        if (zeroGroups.isEmpty()) {
+            for (int i = 0; i < queries.length; i++)
+                ans.add(ones);
+            return ans;
+        }
+
+        SparseTable st = new SparseTable(getZeroMergeLengths(zeroGroups));
+
+        for (int[] q : queries) {
+
+            int l = q[0];
+            int r = q[1];
+
+            int left =
+                    zeroGroupIndex[l] == -1
+                            ? -1
+                            : zeroGroups.get(zeroGroupIndex[l]).length
+                            - (l - zeroGroups.get(zeroGroupIndex[l]).start);
+
+            int right =
+                    zeroGroupIndex[r] == -1
+                            ? -1
+                            : r - zeroGroups.get(zeroGroupIndex[r]).start + 1;
+
+            int startAdjacentGroupIndex = zeroGroupIndex[l] + 1;
+            int endAdjacentGroupIndex =
+                    (s.charAt(r) == '1'
+                            ? zeroGroupIndex[r]
+                            : zeroGroupIndex[r] - 1) - 1;
+
+            int activeSections = ones;
+
+            if (s.charAt(l) == '0'
+                    && s.charAt(r) == '0'
+                    && zeroGroupIndex[l] + 1 == zeroGroupIndex[r]) {
+
+                activeSections = Math.max(activeSections,
+                        ones + left + right);
+
+            } else if (startAdjacentGroupIndex <= endAdjacentGroupIndex) {
+
+                activeSections = Math.max(activeSections,
+                        ones + st.query(startAdjacentGroupIndex,
+                                endAdjacentGroupIndex));
+            }
+
+            if (s.charAt(l) == '0'
+                    && zeroGroupIndex[l] + 1
+                    <= (s.charAt(r) == '1'
+                    ? zeroGroupIndex[r]
+                    : zeroGroupIndex[r] - 1)) {
+
+                activeSections = Math.max(activeSections,
+                        ones + left
+                                + zeroGroups.get(zeroGroupIndex[l] + 1).length);
+            }
+
+            if (s.charAt(r) == '0'
+                    && zeroGroupIndex[l] < zeroGroupIndex[r] - 1) {
+
+                activeSections = Math.max(activeSections,
+                        ones + right
+                                + zeroGroups.get(zeroGroupIndex[r] - 1).length);
+            }
+
+            ans.add(activeSections);
+        }
+
+        return ans;
+    }
+
+    private int[] getZeroGroups(String s, List<Group> zeroGroups) {
+
+        int[] zeroGroupIndex = new int[s.length()];
+
+        for (int i = 0; i < s.length(); i++) {
+
+            if (s.charAt(i) == '0') {
+
+                if (i > 0 && s.charAt(i - 1) == '0') {
+                    zeroGroups.get(zeroGroups.size() - 1).length++;
+                } else {
+                    zeroGroups.add(new Group(i, 1));
+                }
+            }
+
+            zeroGroupIndex[i] = zeroGroups.size() - 1;
+        }
+
+        return zeroGroupIndex;
+    }
+
+    private int[] getZeroMergeLengths(List<Group> zeroGroups) {
+
+        int m = zeroGroups.size();
+
+        if (m <= 1)
+            return new int[0];
+
+        int[] merge = new int[m - 1];
+
+        for (int i = 0; i < m - 1; i++) {
+            merge[i] =
+                    zeroGroups.get(i).length
+                            + zeroGroups.get(i + 1).length;
+        }
+
+        return merge;
+    }
+
+}
+
+//Complexity:
+// time - O(n log n + q)
+// space - O(n log n)
+
+
+//You are given a binary string s of length n, where:
+//'1' represents an active section.
+//'0' represents an inactive section.
+//You can perform at most one trade to maximize the number of active sections in s. In a trade, you:
+//Convert a contiguous block of '1's that is surrounded by '0's to all '0's.
+//Afterward, convert a contiguous block of '0's that is surrounded by '1's to all '1's.
+//Additionally, you are given a 2D array queries, where queries[i] = [li, ri] represents a substring s[li...ri].
+//For each query, determine the maximum possible number of active sections in s after making the optimal trade on
+// the substring s[li...ri].
+//Return an array answer, where answer[i] is the result for queries[i].
+//Note
+//For each query, treat s[li...ri] as if it is augmented with a '1' at both ends, forming t = '1' + s[li...ri] + '1'.
+// The augmented '1's do not contribute to the final count.
+//The queries are independent of each other.
+
+//Example 1:
+//Input: s = "01", queries = [[0,1]]
+//Output: [1]
+//Explanation:
+//Because there is no block of '1's surrounded by '0's, no valid trade is possible. The maximum number of active
+// sections is 1.
+
+//Example 2:
+//Input: s = "0100", queries = [[0,3],[0,2],[1,3],[2,3]]
+//Output: [4,3,1,1]
+//Explanation:
+//Query [0, 3] → Substring "0100" → Augmented to "101001"
+//Choose "0100", convert "0100" → "0000" → "1111".
+//The final string without augmentation is "1111". The maximum number of active sections is 4.
+//Query [0, 2] → Substring "010" → Augmented to "10101"
+//Choose "010", convert "010" → "000" → "111".
+//The final string without augmentation is "1110". The maximum number of active sections is 3.
+//Query [1, 3] → Substring "100" → Augmented to "11001"
+//Because there is no block of '1's surrounded by '0's, no valid trade is possible. The maximum number of active
+// sections is 1.
+//Query [2, 3] → Substring "00" → Augmented to "1001"
+//Because there is no block of '1's surrounded by '0's, no valid trade is possible. The maximum number of active
+// sections is 1.
+
+//Example 3:
+//Input: s = "1000100", queries = [[1,5],[0,6],[0,4]]
+//Output: [6,7,2]
+//Explanation:
+//Query [1, 5] → Substring "00010" → Augmented to "1000101"
+//Choose "00010", convert "00010" → "00000" → "11111".
+//The final string without augmentation is "1111110". The maximum number of active sections is 6.
+//Query [0, 6] → Substring "1000100" → Augmented to "110001001"
+//Choose "000100", convert "000100" → "000000" → "111111".
+//The final string without augmentation is "1111111". The maximum number of active sections is 7.
+//Query [0, 4] → Substring "10001" → Augmented to "1100011"
+//Because there is no block of '1's surrounded by '0's, no valid trade is possible. The maximum number of active
+// sections is 2.
+
+//Example 4
+//Input: s = "01010", queries = [[0,3],[1,4],[1,3]]
+//Output: [4,4,2]
+//Explanation:
+//Query [0, 3] → Substring "0101" → Augmented to "101011"
+//Choose "010", convert "010" → "000" → "111".
+//The final string without augmentation is "11110". The maximum number of active sections is 4.
+//Query [1, 4] → Substring "1010" → Augmented to "110101"
+//Choose "010", convert "010" → "000" → "111".
+//The final string without augmentation is "01111". The maximum number of active sections is 4.
+//Query [1, 3] → Substring "101" → Augmented to "11011"
+//Because there is no block of '1's surrounded by '0's, no valid trade is possible. The maximum number of active
+// sections is 2.
+
+//Constraints:
+//1 <= n == s.length <= 105
+//1 <= queries.length <= 105
+//s[i] is either '0' or '1'.
+//queries[i] = [li, ri]
+//0 <= li <= ri < n
