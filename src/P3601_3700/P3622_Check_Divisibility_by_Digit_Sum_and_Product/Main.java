@@ -1,0 +1,58 @@
+package P3601_3700.P3622_Check_Divisibility_by_Digit_Sum_and_Product;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Main solution = new Main();
+
+        System.out.println(solution.checkDivisibility(99)); // true
+        System.out.println(solution.checkDivisibility(23)); // false
+    }
+
+    public boolean checkDivisibility(int n) {
+        int original = n;
+
+        int digitSum = 0;
+        int digitProduct = 1;
+
+        while (n > 0) {
+            int digit = n % 10;
+
+            digitSum += digit;
+            digitProduct *= digit;
+
+            n /= 10;
+        }
+
+        int divisor = digitSum + digitProduct;
+
+        return original % divisor == 0;
+    }
+
+}
+
+//Complexity:
+// time - O(digits)
+// space - O(1)
+
+
+//You are given a positive integer n. Determine whether n is divisible by the sum of the following two values:
+//The digit sum of n (the sum of its digits).
+//The digit product of n (the product of its digits).
+//Return true if n is divisible by this sum; otherwise, return false.
+
+//Example 1:
+//Input: n = 99
+//Output: true
+//Explanation:
+//Since 99 is divisible by the sum (9 + 9 = 18) plus product (9 * 9 = 81) of its digits (total 99), the output is true.
+//
+//Example 2:
+//Input: n = 23
+//Output: false
+//Explanation:
+//Since 23 is not divisible by the sum (2 + 3 = 5) plus product (2 * 3 = 6) of its digits (total 11), the output is
+// false.
+
+//Constraints:
+//1 <= n <= 106
